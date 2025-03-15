@@ -7,17 +7,13 @@ server:
 
 spring:
   application:
-    name: interview_manager
+    name: interview_manager_test
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: 'jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:interview_manager}?currentSchema=${DB_SCHEMA:public}'
+    url: 'jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:interview_manager}?currentSchema=${DB_SCHEMA:test}'
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
-    hikari:
-      maximum-pool-size: ${HIKARI_MAX_POOL:10}
-      minimum-idle: ${HIKARI_MAX_POOL:10}
-      driver-class-name: org.postgresql.Driver
 
   liquibase:
     change-log: classpath:db/changelog-master.yaml
@@ -27,7 +23,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -36,3 +32,12 @@ spring:
 logging:
   level:
     root: info
+
+zonky:
+  test:
+    database:
+      provider: zonky
+      postgres:
+        initdb:
+          properties:
+            locale: ru_RU.UTF-8

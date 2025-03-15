@@ -7,7 +7,6 @@ import org.hibernate.type.SqlTypes
 
 @Entity(name = "Profiles")
 class ProfileEntity(
-    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(
         name = "user_id",
         length = 64,
@@ -19,29 +18,27 @@ class ProfileEntity(
         length = 16,
         nullable = false
     )
-    var type: ProfileEnum
-) {
-
+    val type: ProfileEnum,
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(
-        name = "id",
         length = 80,
         nullable = false
     )
-    val id: String = String.format("%s-%s", userId, type)
+    override val id: String? = String.format("%s-%s", userId, type.value)
+) : AbstractEntity<String>() {
 
     @ManyToOne(
         targetEntity = UserEntity::class,
-        fetch = FetchType.LAZY
+        fetch = FetchType.LAZY,
+        optional = false
     )
     @JoinColumn(
         name = "user_id",
         referencedColumnName = "id",
         nullable = false,
         insertable = false,
-        updatable = false
+        updatable = false,
+        foreignKey = ForeignKey(name = "fk_profiles_on_user")
     )
     val user: UserEntity? = null
 }

@@ -2,31 +2,33 @@ package by.krivosheev.interview_manager.core.entity
 
 import by.krivosheev.interview_manager.core.ProfileEnum
 import jakarta.persistence.*
-import org.hibernate.annotations.JdbcTypeCode
-import org.hibernate.type.SqlTypes
 
 @Entity(name = "Users")
 class UserEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(
         name = "id",
         length = 64,
         nullable = false
     )
-    val id: String
-) {
-
+    override val id: String,
     @OneToMany(
         targetEntity = ProfileEntity::class,
         cascade = [
-            CascadeType.REMOVE
+            CascadeType.PERSIST,
+            CascadeType.REMOVE,
+            CascadeType.DETACH
         ],
         fetch = FetchType.LAZY,
-        mappedBy = "userId"
+        mappedBy = "userId",
+        orphanRemoval = true
     )
-    var profiles: Set<ProfileEntity> = emptySet()
+    val profiles: MutableSet<ProfileEntity> = mutableSetOf()
+) : AbstractEntity<String>() {
 
-    fun getProfile(type: ProfileEnum) = profiles.find { p: ProfileEntity -> type == p.type }
+    fun addProfile(type: ProfileEnum) = profiles.add(ProfileEntity(id, type))
+
+    fun getProfile(type: ProfileEnum) = profiles.find { it.type == type }
+
+    fun removeProfile(type: ProfileEnum) = profiles.removeIf { it.type == type }
 }

@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/v-1.0.0/01/init_users_table.sql
+  - include:
+      file: db/v-1.0.0/02/init_profiles_table.sql
