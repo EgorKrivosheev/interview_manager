@@ -1,0 +1,11 @@
+.gradle/*
+.idea/*
+**/build/*
+.kotlin/*
+docker/*
+gradle/*
+.gitignore
+Dockerfile
+gradlew
+gradlew.bat
+README.md

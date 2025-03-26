@@ -1,0 +1,30 @@
+version: '3.8'
+# Локальный запуск в докере
+services:
+  postgres:
+    container_name: postgres_14
+    image: postgres:14.15-alpine
+    restart: unless-stopped
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+  interview_manager:
+    container_name: interview_manager_dev
+    build:
+      context: ../../
+      dockerfile: ./Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    environment:
+      DB_HOST: postgres
