@@ -36,3 +36,6 @@ spring:
 logging:
   level:
     root: info
+
+message:
+  error: 'Извините, что-то пошло не так, попробуйте позже...'
