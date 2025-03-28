@@ -37,6 +37,9 @@ dependencies {
     }
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
+    api(kotlin("reflect"))
+    api("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
 tasks {
