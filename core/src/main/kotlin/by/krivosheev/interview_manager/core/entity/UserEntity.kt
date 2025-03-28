@@ -11,24 +11,20 @@ class UserEntity(
         length = 64,
         nullable = false
     )
-    override val id: String,
+    override val id: String
+) : AbstractEntity<String>() {
+
     @OneToMany(
         targetEntity = ProfileEntity::class,
         cascade = [
             CascadeType.PERSIST,
-            CascadeType.REMOVE,
-            CascadeType.DETACH
+            CascadeType.REMOVE
         ],
         fetch = FetchType.LAZY,
         mappedBy = "userId",
         orphanRemoval = true
     )
-    val profiles: MutableSet<ProfileEntity> = mutableSetOf()
-) : AbstractEntity<String>() {
-
-    fun addProfile(type: ProfileEnum) = profiles.add(ProfileEntity(id, type))
+    var profiles: MutableSet<ProfileEntity> = mutableSetOf()
 
     fun getProfile(type: ProfileEnum) = profiles.find { it.type == type }
-
-    fun removeProfile(type: ProfileEnum) = profiles.removeIf { it.type == type }
 }
