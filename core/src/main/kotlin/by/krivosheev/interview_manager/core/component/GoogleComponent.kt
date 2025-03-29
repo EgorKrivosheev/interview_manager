@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 open class GoogleComponent {
 
     companion object {
-        private val logger: Logger = LoggerFactory.getLogger(QuestionsComponent::class.java)
+        private val logger: Logger = LoggerFactory.getLogger(GoogleComponent::class.java)
     }
 
     /**

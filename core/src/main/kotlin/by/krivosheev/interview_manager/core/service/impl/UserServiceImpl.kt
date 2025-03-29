@@ -1,6 +1,7 @@
 package by.krivosheev.interview_manager.core.service.impl
 
 import by.krivosheev.interview_manager.core.ProfileEnum
+import by.krivosheev.interview_manager.core.entity.AbstractEntity
 import by.krivosheev.interview_manager.core.entity.ProfileEntity
 import by.krivosheev.interview_manager.core.entity.UserEntity
 import by.krivosheev.interview_manager.core.repository.ProfileEntityRepository
@@ -19,6 +20,14 @@ open class UserServiceImpl(
 
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(UserServiceImpl::class.java)
+
+        private fun <T, E> logEntity(entity: E): E
+                where T : Any,
+                      E : AbstractEntity<T> {
+            logger.debug("Создание {}", entity.toString())
+
+            return entity
+        }
     }
 
     @Transactional
@@ -28,11 +37,11 @@ open class UserServiceImpl(
     }
 
     private fun createUser(userId: String) = userEntityRepository.save(UserEntity(userId))
-        .also { logger.debug("Создание пользователя: {}", userId) }
+        .also(::logEntity)
 
     private fun addProfile(
         userId: String,
         profile: ProfileEnum
     ) = profileEntityRepository.save(ProfileEntity(userId, profile))
-        .also { logger.debug("Создание профиля: {}, для пользователя: {}", profile, userId) }
+        .also(::logEntity)
 }
