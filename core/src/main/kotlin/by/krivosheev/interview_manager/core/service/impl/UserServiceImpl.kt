@@ -12,6 +12,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
+/**
+ * Класс реализации бизнес-логики сущности "Пользователь".
+ */
 @Service
 open class UserServiceImpl(
     private val userEntityRepository: UserEntityRepository,

@@ -4,6 +4,9 @@ import jakarta.persistence.Id
 import jakarta.persistence.MappedSuperclass
 import org.springframework.data.util.ProxyUtils
 
+/**
+ * Абстрактный класс для сущностей с идентификатором.
+ */
 @MappedSuperclass
 abstract class AbstractEntity<T> {
     @Id

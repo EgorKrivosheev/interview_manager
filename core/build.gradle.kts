@@ -23,12 +23,17 @@ allOpen {
 }
 
 dependencies {
+    val telegramApiVersion = "6.9.7.1"
+
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     implementation("org.liquibase:liquibase-core")
+
+    implementation("org.telegram:telegrambots-spring-boot-starter:$telegramApiVersion")
+    implementation("org.telegram:telegrambotsextensions:$telegramApiVersion")
 
     runtimeOnly("org.postgresql:postgresql")
 
@@ -40,6 +45,8 @@ dependencies {
 
     api(kotlin("reflect"))
     api("org.springframework.boot:spring-boot-starter-data-jpa")
+    api("org.telegram:telegrambots-spring-boot-starter:$telegramApiVersion")
+    api("org.telegram:telegrambotsextensions:$telegramApiVersion")
 }
 
 tasks {

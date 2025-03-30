@@ -5,6 +5,13 @@ import jakarta.persistence.*
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
 
+/**
+ * Класс сущность "Профиль пользователя".
+ *
+ * @param userId идентификатор пользователя
+ * @param type тип профиля
+ * @param id идентификатор профиля
+ */
 @Entity(name = "Profiles")
 class ProfileEntity(
     @Column(

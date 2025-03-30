@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Component
 
+/**
+ * Класс с реализацией для работы с Google таблицами.
+ */
 @Component
 open class GoogleComponent {
 

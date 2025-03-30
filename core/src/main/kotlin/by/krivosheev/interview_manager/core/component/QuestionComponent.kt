@@ -6,6 +6,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
+/**
+ * Класс с реализацией для сущности "Вопрос-ответ".
+ */
 @Component
 class QuestionsComponent(
     private val messageConfig: MessageConfig,

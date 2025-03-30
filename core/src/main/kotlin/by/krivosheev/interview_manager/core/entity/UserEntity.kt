@@ -3,6 +3,11 @@ package by.krivosheev.interview_manager.core.entity
 import by.krivosheev.interview_manager.core.ProfileEnum
 import jakarta.persistence.*
 
+/**
+ * Класс сущность "Пользователь".
+ *
+ * @param id идентификатор пользователя
+ */
 @Entity(name = "Users")
 class UserEntity(
     @Id
