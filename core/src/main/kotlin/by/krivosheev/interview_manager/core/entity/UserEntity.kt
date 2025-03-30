@@ -1,7 +1,8 @@
 package by.krivosheev.interview_manager.core.entity
 
-import by.krivosheev.interview_manager.core.ProfileEnum
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 
 /**
  * Класс сущность "Пользователь".
@@ -17,19 +18,4 @@ class UserEntity(
         nullable = false
     )
     override val id: String
-) : AbstractEntity<String>() {
-
-    @OneToMany(
-        targetEntity = ProfileEntity::class,
-        cascade = [
-            CascadeType.PERSIST,
-            CascadeType.REMOVE
-        ],
-        fetch = FetchType.LAZY,
-        mappedBy = "userId",
-        orphanRemoval = true
-    )
-    var profiles: MutableSet<ProfileEntity> = mutableSetOf()
-
-    fun getProfile(type: ProfileEnum) = profiles.find { it.type == type }
-}
+) : AbstractEntity<String>()

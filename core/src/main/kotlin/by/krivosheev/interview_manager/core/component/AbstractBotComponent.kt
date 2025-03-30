@@ -1,5 +1,6 @@
 package by.krivosheev.interview_manager.core.component
 
+import by.krivosheev.interview_manager.core.command.StartCommand
 import by.krivosheev.interview_manager.core.config.MessageConfig
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -12,15 +13,24 @@ import org.telegram.telegrambots.meta.api.objects.Update
  *
  * @param token токен бота
  * @param name имя бота
+ * @param messageConfig конфигурация текстовых сообщений пользователю
+ * @param startCommand реализация команды start
  */
-abstract class AbstractBotComponent(
-    private val messageConfig: MessageConfig,
+abstract class AbstractBotComponent<S : StartCommand>(
     private val token: String,
-    private val name: String
+    private val name: String,
+    private val messageConfig: MessageConfig,
+    private val startCommand: S
 ) : TelegramLongPollingCommandBot(token) {
 
     protected companion object {
         private val logger: Logger = LoggerFactory.getLogger(this::class.java)
+    }
+
+    init {
+        logger.info("Регистрация команды start для бота: $name")
+
+        register(startCommand)
     }
 
     /**
@@ -34,7 +44,7 @@ abstract class AbstractBotComponent(
     override fun processNonCommandUpdate(update: Update) {
         if (update.hasMessage()) {
             val chatId = update.message.chatId
-            sendTextMessage(chatId, messageConfig.notFoundCommand, false)
+            sendTextMessage(chatId, messageConfig.notFoundCommand)
         }
     }
 
@@ -43,22 +53,20 @@ abstract class AbstractBotComponent(
      *
      * @param chatId идентификатор чата
      * @param text текст сообщения
-     * @param enableMarkdown включить поддержку Markdown
      */
     protected open fun sendTextMessage(
         chatId: Long,
-        text: String,
-        enableMarkdown: Boolean = true
+        text: String
     ): Unit = SendMessage()
         .apply {
             setChatId(chatId)
             setText(text)
-            enableMarkdown(enableMarkdown)
+            enableMarkdown(false)
             disableWebPagePreview()
         }
         .run {
-            logger.info("Отправление текстового сообщения в чат: $chatId")
+            logger.info("[$name] - Отправление текстового сообщения в чат: $chatId")
 
-            execute(this)
+            executeAsync(this)
         }
 }

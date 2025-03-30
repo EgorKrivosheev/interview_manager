@@ -14,4 +14,11 @@ interface UserService {
      * @param profile профиль пользователя
      */
     fun createUserWithProfile(userId: String, profile: ProfileEnum)
+
+    /**
+     * Создать пользователя со всеми профилями.
+     *
+     * @param userId идентификатор пользователя
+     */
+    fun createUserWithProfiles(userId: String)
 }

@@ -1,7 +1,9 @@
 package by.krivosheev.interview_manager.core.entity
 
 import by.krivosheev.interview_manager.core.ProfileEnum
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
 
@@ -32,20 +34,4 @@ class ProfileEntity(
         nullable = false
     )
     override val id: String? = String.format("%s-%s", userId, type.value)
-) : AbstractEntity<String>() {
-
-    @ManyToOne(
-        targetEntity = UserEntity::class,
-        fetch = FetchType.LAZY,
-        optional = false
-    )
-    @JoinColumn(
-        name = "user_id",
-        referencedColumnName = "id",
-        nullable = false,
-        insertable = false,
-        updatable = false,
-        foreignKey = ForeignKey(name = "fk_profiles_on_user")
-    )
-    val user: UserEntity? = null
-}
+) : AbstractEntity<String>()
