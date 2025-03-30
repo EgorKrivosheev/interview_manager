@@ -49,3 +49,7 @@ manager-bot:
 java-bot:
   token: ${JAVA_BOT_TOKEN:}
   name: ${JAVA_BOT_NAME:JavaInterviewBot}
+
+kotlin-bot:
+  token: ${KOTLIN_BOT_TOKEN:}
+  name: ${KOTLIN_BOT_NAME:KotlinInterviewBot}
