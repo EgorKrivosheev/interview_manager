@@ -45,3 +45,7 @@ message:
 manager-bot:
   token: ${MANAGER_BOT_TOKEN:}
   name: ${MANAGER_BOT_NAME:InterviewManagerBot}
+
+java-bot:
+  token: ${JAVA_BOT_TOKEN:}
+  name: ${JAVA_BOT_NAME:JavaInterviewBot}
