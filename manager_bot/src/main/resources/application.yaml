@@ -38,4 +38,10 @@ logging:
     root: info
 
 message:
+  start: 'Нажмите на команду в меню.'
   error: 'Извините, что-то пошло не так, попробуйте позже...'
+  not-found-command: 'Извините, мне не доступна такая команда...'
+
+manager-bot:
+  token: ${MANAGER_BOT_TOKEN:}
+  name: ${MANAGER_BOT_NAME:InterviewManagerBot}

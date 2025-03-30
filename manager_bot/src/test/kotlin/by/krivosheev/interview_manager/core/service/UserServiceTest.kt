@@ -2,11 +2,13 @@ package by.krivosheev.interview_manager.core.service
 
 import by.krivosheev.interview_manager.AbstractServiceTest
 import by.krivosheev.interview_manager.core.ProfileEnum
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.jdbc.Sql
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class UserServiceTest : AbstractServiceTest() {
@@ -35,9 +37,30 @@ class UserServiceTest : AbstractServiceTest() {
             "insert into users (id) values ('$USER_ID');"
         ]
     )
-    fun `Assert create profiles for existed user`(profile: ProfileEnum) {
+    fun `Assert create profile for existed user`(profile: ProfileEnum) {
         assertDoesNotThrow { instance.createUserWithProfile(USER_ID, profile) }
         // проверим профиль
         assertTrue { profileEntityRepository.existsByUserIdAndType(USER_ID, profile) }
+    }
+
+    @Test
+    fun `Assert create user with profiles`() {
+        assertDoesNotThrow { instance.createUserWithProfiles(USER_ID) }
+        // проверим пользователя
+        assertTrue { userEntityRepository.existsById(USER_ID) }
+        // проверим профили
+        assertEquals(ProfileEnum.entries.size, profileEntityRepository.countByUserId(USER_ID))
+    }
+
+    @Test
+    @Sql(
+        statements = [
+            "insert into users (id) values ('$USER_ID');"
+        ]
+    )
+    fun `Assert create profiles for existed user`() {
+        assertDoesNotThrow { instance.createUserWithProfiles(USER_ID) }
+        // проверим профили
+        assertEquals(ProfileEnum.entries.size, profileEntityRepository.countByUserId(USER_ID))
     }
 }

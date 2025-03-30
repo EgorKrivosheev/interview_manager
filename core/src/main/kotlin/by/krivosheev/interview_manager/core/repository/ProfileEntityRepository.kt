@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository
 interface ProfileEntityRepository : CrudRepository<ProfileEntity, String> {
 
     fun existsByUserIdAndType(userId: String, type: ProfileEnum): Boolean
+
+    fun countByUserId(userId: String): Int
 }
