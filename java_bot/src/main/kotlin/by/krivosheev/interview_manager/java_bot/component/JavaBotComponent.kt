@@ -1,23 +1,23 @@
-package by.krivosheev.interview_manager.component
+package by.krivosheev.interview_manager.java_bot.component
 
-import by.krivosheev.interview_manager.command.IManagerBotCommand
 import by.krivosheev.interview_manager.core.component.AbstractBotComponent
 import by.krivosheev.interview_manager.core.config.MessageConfig
+import by.krivosheev.interview_manager.java_bot.command.IJavaBotCommand
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand
 
 /**
- * Класс с реализацией "Manager" бота.
+ * Класс с реализацией "Java" бота.
  */
 @Component
 @Profile("!test")
-class ManagerBotComponent(
-    @Value("\${manager-bot.token}")
+class JavaBotComponent(
+    @Value("\${java-bot.token}")
     token: String,
-    @Value("\${manager-bot.name}")
+    @Value("\${java-bot.name}")
     name: String,
     messageConfig: MessageConfig,
-    managerBotCommands: List<IManagerBotCommand>
-) : AbstractBotComponent<IBotCommand>(token, name, messageConfig, managerBotCommands)
+    javaBotCommands: List<IJavaBotCommand>
+) : AbstractBotComponent<IBotCommand>(token, name, messageConfig, javaBotCommands)

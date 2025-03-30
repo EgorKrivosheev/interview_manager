@@ -1,10 +1,10 @@
 package by.krivosheev.interview_manager.core.component
 
-import by.krivosheev.interview_manager.core.command.StartCommand
 import by.krivosheev.interview_manager.core.config.MessageConfig
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot
+import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Update
 
@@ -14,13 +14,13 @@ import org.telegram.telegrambots.meta.api.objects.Update
  * @param token токен бота
  * @param name имя бота
  * @param messageConfig конфигурация текстовых сообщений пользователю
- * @param startCommand реализация команды start
+ * @param commands список реализаций команд бота
  */
-abstract class AbstractBotComponent<S : StartCommand>(
+abstract class AbstractBotComponent<T : IBotCommand>(
     private val token: String,
     private val name: String,
     private val messageConfig: MessageConfig,
-    private val startCommand: S
+    private val commands: List<T>
 ) : TelegramLongPollingCommandBot(token) {
 
     protected companion object {
@@ -28,9 +28,11 @@ abstract class AbstractBotComponent<S : StartCommand>(
     }
 
     init {
-        logger.info("Регистрация команды start для бота: $name")
+        commands.forEach {
+            logger.info("Регистрация команды ${it.commandIdentifier} для бота: $name")
 
-        register(startCommand)
+            register(it)
+        }
     }
 
     /**
