@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @ConfigurationProperties(prefix = "message")
 open class MessageConfig(
-    val error: String = "Извините, что-то пошло не так, попробуйте позже...",
-    val notFoundCommand: String = "Извините, мне не доступна такая команда..."
+    var start: String = "Нажмите на команду в меню.",
+    var error: String = "Извините, что-то пошло не так, попробуйте позже...",
+    var notFoundCommand: String = "Извините, мне не доступна такая команда..."
 )

@@ -46,7 +46,15 @@ class QuestionsComponent(
 data class QuestionDto(
     val question: String,
     val answer: String
-)
+) {
+    fun getText() = with(this) {
+        StringBuilder()
+            .append(question)
+            .append("\n")
+            .append(answer)
+            .toString()
+    }
+}
 
 /**
  * Ошибка, нет вопросов-ответов
