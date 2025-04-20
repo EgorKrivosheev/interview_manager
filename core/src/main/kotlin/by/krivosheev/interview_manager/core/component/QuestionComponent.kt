@@ -2,6 +2,7 @@ package by.krivosheev.interview_manager.core.component
 
 import by.krivosheev.interview_manager.core.ProfileEnum
 import by.krivosheev.interview_manager.core.config.MessageConfig
+import by.krivosheev.interview_manager.core.exception.GoogleIntegrationException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -22,20 +23,20 @@ class QuestionsComponent(
     /**
      * Получить случайный вопрос-ответ по профилю.
      *
-     * @exception NotFoundQuestionsException если нет вопрос-ответа по профилю.
+     * @exception GoogleIntegrationException если нет вопрос-ответа по профилю.
      */
     fun getRandomQuestion(profile: ProfileEnum): QuestionDto {
         logger.info("Запрос случайного вопроса-ответа для профиля: $profile")
 
         try {
             val questions = googleComponent.getQuestions(profile)
-            val randomQuestion = questions.entries.random()
+            val randomQuestion = questions.random()
 
-            return QuestionDto(randomQuestion.key, randomQuestion.value)
+            return QuestionDto(randomQuestion[1], randomQuestion[2])
         } catch (e: NoSuchElementException) {
-            logger.error("Нет вопросов-ответов для профиля: $profile")
+            logger.warn("Нет вопросов-ответов для профиля: $profile")
 
-            throw NotFoundQuestionsException(messageConfig.error)
+            throw GoogleIntegrationException(messageConfig.error)
         }
     }
 }
@@ -55,10 +56,3 @@ data class QuestionDto(
             .toString()
     }
 }
-
-/**
- * Ошибка, нет вопросов-ответов
- */
-class NotFoundQuestionsException(
-    override val message: String
-) : RuntimeException(message)

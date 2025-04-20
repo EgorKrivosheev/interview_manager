@@ -5,6 +5,7 @@ plugins {
 }
 
 val javaVersion: String by project
+val springCloudVersion: String by project
 
 java {
     toolchain {
@@ -22,6 +23,12 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+    }
+}
+
 dependencies {
     val telegramApiVersion = "6.9.7.1"
 
@@ -29,6 +36,7 @@ dependencies {
     implementation(kotlin("reflect"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     implementation("org.liquibase:liquibase-core")
 
@@ -42,6 +50,8 @@ dependencies {
     }
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     api(kotlin("reflect"))
     api("org.springframework.boot:spring-boot-starter-data-jpa")

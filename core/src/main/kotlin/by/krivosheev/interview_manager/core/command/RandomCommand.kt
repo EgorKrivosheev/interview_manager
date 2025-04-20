@@ -2,8 +2,8 @@ package by.krivosheev.interview_manager.core.command
 
 import by.krivosheev.interview_manager.core.CommandBotEnum.RANDOM
 import by.krivosheev.interview_manager.core.ProfileEnum
-import by.krivosheev.interview_manager.core.component.NotFoundQuestionsException
 import by.krivosheev.interview_manager.core.component.QuestionsComponent
+import by.krivosheev.interview_manager.core.exception.GoogleIntegrationException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand
@@ -44,7 +44,7 @@ abstract class RandomCommand(
                 }
 
             absSender.executeAsync(sendMessage)
-        } catch (e: NotFoundQuestionsException) {
+        } catch (e: GoogleIntegrationException) {
             absSender.executeAsync(
                 SendMessage(chatId, e.message)
                     .also {
