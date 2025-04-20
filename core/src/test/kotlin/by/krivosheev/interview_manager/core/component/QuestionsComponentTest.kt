@@ -2,13 +2,15 @@ package by.krivosheev.interview_manager.core.component
 
 import by.krivosheev.interview_manager.core.ProfileEnum
 import by.krivosheev.interview_manager.core.config.MessageConfig
+import by.krivosheev.interview_manager.core.exception.GoogleIntegrationException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
-import org.mockito.Mockito.*
+import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.mock
 import kotlin.test.assertEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -25,16 +27,7 @@ class QuestionsComponentTest {
     private var instance = QuestionsComponent(MessageConfig(), googleComponentMock)
 
     private fun doReturnQuestions(profile: ProfileEnum) {
-        doReturn(mapOf(EXPECTED_QUESTION to EXPECTED_ANSWER))
-            .`when`(googleComponentMock)
-            .getQuestions(profile)
-    }
-
-    private fun doThrowNotFoundQuestionsException(
-        expectedMessage: String = EXPECTED_ERROR_MESSAGE,
-        profile: ProfileEnum = ProfileEnum.JAVA
-    ) {
-        doThrow(NotFoundQuestionsException(expectedMessage))
+        doReturn(listOf(listOf("", EXPECTED_QUESTION, EXPECTED_ANSWER)))
             .`when`(googleComponentMock)
             .getQuestions(profile)
     }
@@ -52,11 +45,11 @@ class QuestionsComponentTest {
 
     @Test
     fun `Throw exception when questions is empty`() {
-        doReturn(emptyMap<String, String>())
+        doReturn(emptyList<List<String>>())
             .`when`(googleComponentMock)
             .getQuestions(ProfileEnum.JAVA)
 
-        val actual = assertThrows<NotFoundQuestionsException> { instance.getRandomQuestion(ProfileEnum.JAVA) }
+        val actual = assertThrows<GoogleIntegrationException> { instance.getRandomQuestion(ProfileEnum.JAVA) }
         // проверим ошибку
         assertEquals(EXPECTED_ERROR_MESSAGE, actual.message)
     }

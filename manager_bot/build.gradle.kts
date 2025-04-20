@@ -5,6 +5,7 @@ plugins {
 }
 
 val javaVersion: String by project
+val springCloudVersion: String by project
 
 java {
     toolchain {
@@ -16,6 +17,12 @@ kotlin {
     jvmToolchain(JavaLanguageVersion.of(javaVersion).asInt())
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+    }
+}
+
 dependencies {
     implementation(project(":core"))
 
@@ -23,6 +30,7 @@ dependencies {
     implementation(project(":kotlin_bot"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {

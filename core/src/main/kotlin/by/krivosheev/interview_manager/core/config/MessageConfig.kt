@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration
 /**
  * Класс конфигурации с текстовыми сообщениями для пользователя.
  *
+ * @param start текст сообщения приветствия пользователя
  * @param error текст сообщение при возникновении ошибки
  * @param notFoundCommand текст сообщения при некорректной команде
  */

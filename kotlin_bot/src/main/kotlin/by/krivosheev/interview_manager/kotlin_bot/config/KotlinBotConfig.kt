@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 
 /**
- * Класс регистрации "Kotlin" бота.
+ * Класс регистрации Kotlin бота.
  */
 @Configuration
 @Profile("!test")

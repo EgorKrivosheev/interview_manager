@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand
 
 /**
- * Класс с реализацией "Kotlin" бота.
+ * Класс с реализацией Kotlin бота.
  */
 @Component
 @Profile("!test")

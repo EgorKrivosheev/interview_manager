@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 
 /**
- * Класс регистрации "Manager" бота.
+ * Класс регистрации Manager бота.
  */
 @Configuration
 @Profile("!test")
