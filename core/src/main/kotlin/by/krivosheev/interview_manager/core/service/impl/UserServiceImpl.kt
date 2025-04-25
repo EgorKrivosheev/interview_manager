@@ -20,7 +20,7 @@ open class UserServiceImpl(
     private val profileEntityRepository: ProfileEntityRepository
 ) : UserService {
 
-    companion object {
+    private companion object {
         private val logger: Logger = LoggerFactory.getLogger(UserServiceImpl::class.java)
 
         private fun <T, E> logEntity(entity: E): E

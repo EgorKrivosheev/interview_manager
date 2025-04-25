@@ -2,8 +2,8 @@ package by.krivosheev.interview_manager.core.command
 
 import by.krivosheev.interview_manager.core.CommandBotEnum.RANDOM
 import by.krivosheev.interview_manager.core.ProfileEnum
-import by.krivosheev.interview_manager.core.component.QuestionsComponent
 import by.krivosheev.interview_manager.core.exception.GoogleIntegrationException
+import by.krivosheev.interview_manager.core.service.QuestionAnswerService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand
@@ -16,7 +16,7 @@ import org.telegram.telegrambots.meta.bots.AbsSender
  * Абстрактный класс реализации команды random.
  */
 abstract class RandomCommand(
-    private val questionsComponent: QuestionsComponent
+    private val questionAnswerService: QuestionAnswerService
 ) : BotCommand(RANDOM.command, RANDOM.description) {
 
     protected companion object {
@@ -36,11 +36,12 @@ abstract class RandomCommand(
         val profile = getProfile()
 
         try {
-            val sendMessage = questionsComponent.getRandomQuestion(profile)
+            val sendMessage = questionAnswerService.getRandom(profile)
                 .run {
                     logger.info("[${getBotName()}-random] - Отправление сообщения пользователю ($userId) в чат: $chatId")
 
-                    SendMessage(chatId, getText())
+                    SendMessage(chatId, getFormattedText())
+                        .apply { this.enableMarkdownV2(true) }
                 }
 
             absSender.executeAsync(sendMessage)

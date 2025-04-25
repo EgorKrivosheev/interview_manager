@@ -24,7 +24,5 @@ class JavaStartCommand(
 
     override fun getBotName() = botName
 
-    override fun createUserLogic(userId: String) {
-        userService.createUserWithProfile(userId, JAVA)
-    }
+    override fun createUserLogic(userId: String) = userService.createUserWithProfile(userId, JAVA)
 }

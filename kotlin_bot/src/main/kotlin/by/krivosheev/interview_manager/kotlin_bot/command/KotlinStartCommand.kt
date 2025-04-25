@@ -24,7 +24,5 @@ class KotlinStartCommand(
 
     override fun getBotName() = botName
 
-    override fun createUserLogic(userId: String) {
-        userService.createUserWithProfile(userId, KOTLIN)
-    }
+    override fun createUserLogic(userId: String) = userService.createUserWithProfile(userId, KOTLIN)
 }
