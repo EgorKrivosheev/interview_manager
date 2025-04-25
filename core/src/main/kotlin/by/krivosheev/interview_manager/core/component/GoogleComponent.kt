@@ -21,7 +21,7 @@ open class GoogleComponent(
     private val googleSheetsClient: GoogleSheetsClient
 ) {
 
-    companion object {
+    private companion object {
         private val logger: Logger = LoggerFactory.getLogger(GoogleComponent::class.java)
     }
 

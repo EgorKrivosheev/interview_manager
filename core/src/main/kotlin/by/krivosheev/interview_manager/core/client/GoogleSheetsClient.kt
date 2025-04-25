@@ -20,7 +20,7 @@ interface GoogleSheetsClient {
      *
      * @param spreadsheetId идентификатор Google таблицы
      * @param range название вкладки с диапазоном
-     * @param key ключ
+     * @param key ключ авторизации к Google аккаунту
      */
     @GetMapping("/{spreadsheetId}/values/{range}")
     fun getValues(

@@ -53,6 +53,7 @@ java-bot:
 kotlin-bot:
   token: ${KOTLIN_BOT_TOKEN:}
   name: ${KOTLIN_BOT_NAME:KotlinInterviewBot}
+
 google:
   api-key: ${GOOGLE_API_KEY:}
   sheet-id: ${GOOGLE_SHEET_ID:}

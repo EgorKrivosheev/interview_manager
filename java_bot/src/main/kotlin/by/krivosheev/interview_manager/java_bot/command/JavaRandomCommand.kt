@@ -2,7 +2,7 @@ package by.krivosheev.interview_manager.java_bot.command
 
 import by.krivosheev.interview_manager.core.ProfileEnum.JAVA
 import by.krivosheev.interview_manager.core.command.RandomCommand
-import by.krivosheev.interview_manager.core.component.QuestionsComponent
+import by.krivosheev.interview_manager.core.service.QuestionAnswerService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component
 @Component
 @Profile("!test")
 class JavaRandomCommand(
-    questionsComponent: QuestionsComponent
+    questionAnswerService: QuestionAnswerService
 ) : IJavaBotCommand,
-    RandomCommand(questionsComponent) {
+    RandomCommand(questionAnswerService) {
 
     @Value("\${java-bot.name}")
     private lateinit var botName: String

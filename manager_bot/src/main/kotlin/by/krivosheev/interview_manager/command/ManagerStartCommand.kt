@@ -23,7 +23,5 @@ class ManagerStartCommand(
 
     override fun getBotName() = botName
 
-    override fun createUserLogic(userId: String) {
-        userService.createUserWithProfiles(userId)
-    }
+    override fun createUserLogic(userId: String) = userService.createUserWithProfiles(userId)
 }
