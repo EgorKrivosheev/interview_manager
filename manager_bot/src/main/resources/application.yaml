@@ -54,6 +54,10 @@ kotlin-bot:
   token: ${KOTLIN_BOT_TOKEN:}
   name: ${KOTLIN_BOT_NAME:KotlinInterviewBot}
 
+spring-bot:
+  token: ${SPRING_BOT_TOKEN:}
+  name: ${SPRING_BOT_NAME:SpringInterviewBot}
+
 google:
   api-key: ${GOOGLE_API_KEY:}
   sheet-id: ${GOOGLE_SHEET_ID:}
