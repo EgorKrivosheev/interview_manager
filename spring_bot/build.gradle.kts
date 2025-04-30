@@ -5,7 +5,6 @@ plugins {
 }
 
 val javaVersion: String by project
-val springCloudVersion: String by project
 
 java {
     toolchain {
@@ -17,22 +16,8 @@ kotlin {
     jvmToolchain(JavaLanguageVersion.of(javaVersion).asInt())
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
-    }
-}
-
 dependencies {
     implementation(project(":core"))
-
-    implementation(project(":java_bot"))
-    implementation(project(":kotlin_bot"))
-    implementation(project(":spring_bot"))
-
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude("org.junit.vintage", "junit-vintage-engine")
@@ -40,8 +25,11 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 
-    testImplementation("io.zonky.test:embedded-database-spring-test:2.6.0")
-    testImplementation("io.zonky.test:embedded-postgres:2.1.0")
-
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks {
+    bootJar {
+        enabled = false
+    }
 }

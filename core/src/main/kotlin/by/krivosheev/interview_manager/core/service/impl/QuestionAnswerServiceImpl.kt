@@ -34,7 +34,7 @@ class QuestionAnswerServiceImpl(
             return googleComponent.getQuestions(profile)
                 .random()
                 .let { QuestionAnswerDto(it[KEY_INDEX], it[QUESTION_INDEX], it[ANSWER_INDEX]) }
-        } catch (e: NoSuchElementException) {
+        } catch (e: RuntimeException) {
             logger.warn("Нет вопросов-ответов для профиля: $profile")
 
             throw GoogleIntegrationException(messageConfig.error)
