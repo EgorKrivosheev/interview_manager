@@ -8,6 +8,5 @@ enum class ProfileEnum(val value: String) {
     KOTLIN("kotlin"),
     SPRING("spring"),
     POSTGRESQL("postgresql"),
-    DOCKER("docker"),
-    PATTERN("pattern")
+    DOCKER("docker")
 }

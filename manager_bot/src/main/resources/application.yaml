@@ -58,6 +58,10 @@ spring-bot:
   token: ${SPRING_BOT_TOKEN:}
   name: ${SPRING_BOT_NAME:SpringInterviewBot}
 
+postgresql-bot:
+  token: ${POSTGRESQL_BOT_TOKEN:}
+  name: ${POSTGRESQL_BOT_NAME:PostgresqlInterviewBot}
+
 google:
   api-key: ${GOOGLE_API_KEY:}
   sheet-id: ${GOOGLE_SHEET_ID:}
